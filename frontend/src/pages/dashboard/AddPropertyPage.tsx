@@ -34,16 +34,34 @@ export default function AddPropertyPage() {
   });
 
   const createMutation = useMutation({
-    mutationFn: () =>
-      client.post('/properties', {
+    mutationFn: async () => {
+      const propertyRes = await client.post('/properties', {
         ...formData,
         price: Number(formData.price),
         area: formData.area ? Number(formData.area) : null,
         bedrooms: formData.bedrooms ? Number(formData.bedrooms) : null,
         bathrooms: formData.bathrooms ? Number(formData.bathrooms) : null,
-      }),
+      });
+
+      const propertyId = propertyRes.data.id;
+
+      for (const upload of uploads) {
+        await client.post('/upload/confirm', {
+          propertyId,
+          s3Key: upload.key,
+          s3Url: upload.url,
+          isPrimary: uploads[0].key === upload.key,
+        });
+      }
+
+      return propertyRes.data;
+    },
     onSuccess: () => {
       navigate('/dashboard');
+    },
+    onError: (error) => {
+      console.error('Error creating property:', error);
+      alert('Failed to create property. Please check console for details.');
     },
   });
 
@@ -54,37 +72,35 @@ export default function AddPropertyPage() {
     }));
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setFiles(Array.from(e.target.files));
-    }
-  };
+      const selectedFiles = Array.from(e.target.files);
 
-  const handleUploadFiles = async () => {
-    for (const file of files) {
-      try {
-        const presignedRes = await client.post('/upload/presigned', {
-          propertyId: 'temp',
-          filename: file.name,
-          contentType: file.type,
-        });
+      for (const file of selectedFiles) {
+        try {
+          const presignedRes = await client.post('/upload/presigned', {
+            propertyId: 'temp',
+            filename: file.name,
+            contentType: file.type,
+          });
 
-        const uploadUrl = presignedRes.data.presignedUrl;
-        await fetch(uploadUrl, {
-          method: 'PUT',
-          headers: { 'Content-Type': file.type },
-          body: file,
-        });
+          const uploadUrl = presignedRes.data.presignedUrl;
+          await fetch(uploadUrl, {
+            method: 'PUT',
+            headers: { 'Content-Type': file.type },
+            body: file,
+          });
 
-        setUploads((prev) => [
-          ...prev,
-          { key: presignedRes.data.s3Key, url: presignedRes.data.s3Url },
-        ]);
-      } catch (error) {
-        console.error('Upload failed:', error);
+          setUploads((prev) => [
+            ...prev,
+            { key: presignedRes.data.s3Key, url: presignedRes.data.s3Url },
+          ]);
+        } catch (error) {
+          console.error('Upload failed:', error);
+          alert('Failed to upload image: ' + file.name);
+        }
       }
     }
-    setFiles([]);
   };
 
   const stepContent = () => {
@@ -271,21 +287,15 @@ export default function AddPropertyPage() {
               </label>
             </div>
 
-            {files.length > 0 && (
-              <div className="bg-green-50 rounded-2xl p-6">
-                <p className="font-light text-slate-700 mb-4">{files.length} files selected</p>
-                <button onClick={handleUploadFiles} className="btn-primary w-full">
-                  Upload Files
-                </button>
-              </div>
-            )}
-
             {uploads.length > 0 && (
               <div className="bg-green-50 rounded-2xl p-6">
-                <p className="font-light text-slate-700 mb-4">{uploads.length} images uploaded</p>
-                <div className="grid grid-cols-4 gap-3">
+                <p className="font-light text-slate-700 mb-4">{uploads.length} image{uploads.length !== 1 ? 's' : ''} uploaded</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {uploads.map((upload, idx) => (
-                    <img key={idx} src={upload.url} alt="" className="w-full h-24 object-cover rounded-xl" />
+                    <div key={idx} className="relative">
+                      <img src={upload.url} alt="Property" className="w-full h-24 object-cover rounded-xl" />
+                      {idx === 0 && <div className="absolute top-2 left-2 bg-green-400 text-white text-xs px-2 py-1 rounded">Primary</div>}
+                    </div>
                   ))}
                 </div>
               </div>
