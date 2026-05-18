@@ -1,4 +1,4 @@
-﻿import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Home, Search, Plus, User, LogOut } from 'lucide-react';
 import { useAuthStore } from '../store/auth';
 
@@ -18,7 +18,11 @@ export default function MobileNav() {
           <>
             <Link
               to="/dashboard"
-              className={lex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all }
+              className={`flex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all ${
+                isActive('/dashboard') && !isActive('/dashboard/add') && !isActive('/dashboard/profile')
+                  ? 'text-green-400'
+                  : 'text-slate-600'
+              }`}
             >
               <Home size={24} />
               <span className="text-xs font-light">Listings</span>
@@ -26,7 +30,9 @@ export default function MobileNav() {
 
             <Link
               to="/dashboard/add-property"
-              className={lex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all }
+              className={`flex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all ${
+                isActive('/dashboard/add-property') ? 'text-green-400' : 'text-slate-600'
+              }`}
             >
               <Plus size={24} />
               <span className="text-xs font-light">Add</span>
@@ -34,7 +40,9 @@ export default function MobileNav() {
 
             <Link
               to="/dashboard/profile"
-              className={lex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all }
+              className={`flex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all ${
+                isActive('/dashboard/profile') ? 'text-green-400' : 'text-slate-600'
+              }`}
             >
               <User size={24} />
               <span className="text-xs font-light">Profile</span>
@@ -55,7 +63,9 @@ export default function MobileNav() {
           <>
             <Link
               to="/"
-              className={lex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all }
+              className={`flex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all ${
+                location.pathname === '/' ? 'text-green-400' : 'text-slate-600'
+              }`}
             >
               <Home size={24} />
               <span className="text-xs font-light">Home</span>
@@ -63,7 +73,9 @@ export default function MobileNav() {
 
             <Link
               to="/search"
-              className={lex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all }
+              className={`flex flex-col items-center gap-1 py-3 px-4 rounded-lg transition-all ${
+                location.pathname === '/search' ? 'text-green-400' : 'text-slate-600'
+              }`}
             >
               <Search size={24} />
               <span className="text-xs font-light">Search</span>
