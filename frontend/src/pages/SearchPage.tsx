@@ -43,11 +43,11 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-4xl font-light text-slate-700 mb-8">Search <span className="font-semibold bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Properties</span></h1>
+    <div className="min-h-screen bg-white py-4 md:py-8">
+      <div className="max-w-7xl mx-auto px-3 md:px-4">
+        <h1 className="text-2xl md:text-4xl font-light text-slate-700 mb-6 md:mb-8">Search <span className="font-semibold bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Properties</span></h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Filters Sidebar */}
           <div className={`lg:col-span-1 ${showFilters ? 'block' : 'hidden'} lg:block`}>
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">

@@ -13,8 +13,8 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen bg-white flex">
-      {/* Sidebar */}
-      <div className="w-72 bg-gradient-to-b from-slate-50 to-white border-r-2 border-slate-100 shadow-lg flex flex-col h-screen sticky top-0">
+      {/* Sidebar - Hidden on mobile */}
+      <div className="hidden md:flex w-72 bg-gradient-to-b from-slate-50 to-white border-r-2 border-slate-100 shadow-lg flex-col h-screen sticky top-0">
         <div className="p-8 border-b-2 border-slate-100">
           <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-300 rounded-full flex items-center justify-center shadow-md mb-4">
             <span className="text-white font-bold text-xl">B</span>
@@ -59,7 +59,7 @@ export default function DashboardLayout() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 py-8 px-8 overflow-auto">
+      <div className="flex-1 py-4 md:py-8 px-4 md:px-8 overflow-auto">
         <Outlet />
       </div>
     </div>
