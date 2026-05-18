@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuthStore } from './store/auth';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import MobileNav from './components/MobileNav';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import PropertyDetailPage from './pages/PropertyDetailPage';
@@ -25,26 +26,29 @@ function AppContent() {
   return (
     <>
       {!isDashboard && <Navbar />}
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/property/:id" element={<PropertyDetailPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <DashboardLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route index element={<MyListingsPage />} />
-          <Route path="add-property" element={<AddPropertyPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-        </Route>
-      </Routes>
+      <div className="pb-20 md:pb-0">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/property/:id" element={<PropertyDetailPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <DashboardLayout />
+              </PrivateRoute>
+            }
+          >
+            <Route index element={<MyListingsPage />} />
+            <Route path="add-property" element={<AddPropertyPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+          </Route>
+        </Routes>
+      </div>
       {!isDashboard && <Footer />}
+      <MobileNav />
     </>
   );
 }
