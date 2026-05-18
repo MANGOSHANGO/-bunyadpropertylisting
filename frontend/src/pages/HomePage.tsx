@@ -36,12 +36,9 @@ export default function HomePage() {
         <div className="relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-4 leading-tight">
-              FREE PROPERTY LISTINGS
-            </h1>
-              <p className="text-4xl md:text-5xl font-light text-slate-600 mb-12 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-light text-slate-600 mb-12 leading-tight">
               Search <span className="font-semibold bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">Properties in Pakistan</span>
-            </p>
+            </h1>
           </div>
 
           {/* Single Row Search */}
