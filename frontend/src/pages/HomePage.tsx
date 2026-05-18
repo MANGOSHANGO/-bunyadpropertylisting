@@ -28,7 +28,7 @@ export default function HomePage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <div className="pt-20 pb-24 px-6 bg-gradient-to-b from-white via-white to-slate-50 relative overflow-hidden">
+      <div className="pt-12 md:pt-20 pb-16 md:pb-24 px-4 md:px-6 bg-gradient-to-b from-white via-white to-slate-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-br from-green-300 to-transparent rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-green-200 to-transparent rounded-full blur-3xl"></div>
@@ -42,8 +42,8 @@ export default function HomePage() {
           </div>
 
           {/* Single Row Search */}
-          <form onSubmit={handleSearch} className="max-w-4xl mx-auto mb-12">
-            <div className="bg-white rounded-xl shadow-lg p-1.5 flex flex-col md:flex-row gap-1.5">
+          <form onSubmit={handleSearch} className="max-w-4xl mx-auto mb-8 md:mb-12">
+            <div className="bg-white rounded-xl shadow-lg p-1.5 flex flex-col gap-1.5">
               <select
                 value={purpose}
                 onChange={(e) => setPurpose(e.target.value as 'buy' | 'rent')}
@@ -98,7 +98,7 @@ export default function HomePage() {
       </div>
 
       {/* Why BUNYAD */}
-      <div className="py-20 px-6 bg-white">
+      <div className="py-12 md:py-20 px-4 md:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light text-slate-800 text-center mb-2">
             Why <span className="font-bold text-slate-900">Trust</span> BUNYAD<span className="text-green-400 font-thin">?</span>
@@ -126,7 +126,7 @@ export default function HomePage() {
       </div>
 
       {/* Featured Properties */}
-      <div className="py-20 px-6 bg-slate-50">
+      <div className="py-12 md:py-20 px-4 md:px-6 bg-slate-50">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -161,7 +161,7 @@ export default function HomePage() {
       </div>
 
       {/* Cities Grid */}
-      <div className="py-20 px-6">
+      <div className="py-12 md:py-20 px-4 md:px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-5xl font-light text-slate-700 text-center mb-2">
             Explore <span className="font-bold text-green-400">By City</span>
@@ -186,7 +186,7 @@ export default function HomePage() {
       </div>
 
       {/* CTA */}
-      <div className="py-12 px-6 bg-gradient-to-r from-green-400 to-green-300 text-white">
+      <div className="py-8 md:py-12 px-4 md:px-6 bg-gradient-to-r from-green-400 to-green-300 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl md:text-6xl font-light mb-2 leading-tight">
             Ready to <span className="font-black">List</span><span className="font-thin">?</span>
