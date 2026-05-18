@@ -43,7 +43,7 @@ router.post('/confirm', authMiddleware, async (req: Request, res: Response) => {
 
 router.delete('/:key', authMiddleware, async (req: Request, res: Response) => {
   try {
-    const { key } = req.params;
+    const key = req.params.key as string;
 
     await deleteFromS3(key);
     await query('DELETE FROM property_images WHERE s3_key = $1', [key]);
